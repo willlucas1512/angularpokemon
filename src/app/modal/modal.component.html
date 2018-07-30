@@ -1,0 +1,91 @@
+<div class="row">
+	<!-- Modal Trigger -->
+  <button class= "waves-effect waves-light btn modal-trigger" (click)="abreModal()">Modal</button>
+
+  <!-- Modal Structure -->
+  <div class="modal" materialize="modal" [materializeParams]="[{dismissible: true}]" [materializeActions]="modalActions"> 
+    <div class="modal-content">
+      <h4>Modal Header</h4>
+      <div class="row">
+	<form #login="ngForm" (ngSubmit)="onSubmit(login)" class="col l12">
+		<div class="row">
+			<div class="input-field col l6">
+				<input id="nome" type="text" name="nome" ngModel required #nome="ngModel" >
+				<label for="nome">Nome</label>
+			</div>
+			<div class="input-field col l2">
+				<input id="idade" type="number" name="idade" ngModel required #idade="ngModel" (blur)="checkAge(idade)">
+				<label for="idade">Idade</label>
+			</div>
+			<div class="input-field col l4">
+				<input id="numero" type="text" name="numero" ngModel required #numero="ngModel" (blur)="checkNumber(numero)">
+				<label for="numero">Número de Identificação</label>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="input-field col l6">
+				<input id="email" type="text" name="email" ngModel required #email="ngModel" >
+				<label for="email">Email</label>
+			</div>
+			<div class="col l6">
+			<p>Região de Início da Jornada</p>
+
+				<input id="regiao" type="radio" name="regiao" required ngModel value="1" #regiao="ngModel">
+				<label for="regiao">América</label><br>
+				<input id="regiao2" type="radio" name="regiao" ngModel value="2">
+				<label for="regiao2">Ásia</label><br>
+				<input id="regiao3" type="radio" name="regiao" ngModel value="3">
+				<label for="regiao3">Oceania</label><br>
+				<input id="regiao4" type="radio" name="regiao" ngModel value="4">
+				<label for="regiao4">Europa</label><br>
+				<input id="regiao5" type="radio" name="regiao" ngModel value="5">
+				<label for="regiao5">África</label><br>
+			</div>
+			<div class="input-field col l6">
+				<input id="pokemon" type="text" name="pokemon" ngModel required #pokemon="ngModel" (blur)="checkPokemon(pokemon)">
+				<label for="pokemon">Pokemon Inicial</label>
+			</div>
+			<div *ngIf="pokemons">
+				<img [src]="pokemons.sprites.front_default">
+			</div>
+			<div class=" col l6">
+			 <p> Outras regiões por onde pretende se aventurar </p>
+				<input id="outras1" type="checkbox" name="outras1" [disabled]="regiao.value == 1" ngModel #outras="ngModel" >
+				<label for="outras1">América</label>
+				<input id="outras2" type="checkbox" name="outras2" [disabled]="regiao.value == 2" ngModel #outras="ngModel" >
+				<label for="outras2">Ásia</label>
+				<input id="outras3" type="checkbox" name="outras3" [disabled]="regiao.value == 3" ngModel #outras="ngModel" >
+				<label for="outras3">Oceania</label>
+				<input id="outras4" type="checkbox" name="outras4" [disabled]="regiao.value == 4" ngModel #outras="ngModel" >
+				<label for="outras4">Europa</label>
+				<input id="outras5" type="checkbox" name="outras5" [disabled]="regiao.value == 5" ngModel #outras="ngModel" >
+				<label for="outras5">África</label>
+			</div>
+		</div>
+		<div *ngIf="(nome.invalid && nome.touched) || (idade.invalid && idade.touched) || (numero.invalid && numero.touched) || (email.invalid && email.touched) || (regiao.invalid && regiao.touched) || (pokemon.invalid && pokemon.touched)">
+			<p>Campo(s) obrigatório(s).</p>
+		</div>
+		<div *ngIf="ageError && idade.touched">
+			<p>Sai daqui pirralho!</p>
+		</div>
+		<div *ngIf="numberError && numero.touched">
+			<p>Escreve mais porra!(ou menos)</p>
+		</div>
+		<div *ngIf="pokemonsError && pokemon.touched">
+			<p>Que porra é essa que tu tá inventando?</p>
+		</div>
+		<div class="row">
+			<button class="waves-effect waves-light btn" [disabled]="login.invalid || passwordError" type="submit" >LOGIN</button>
+		</div>
+	</form>
+	  </div>
+    <div class="modal-footer">
+      <a class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+      <a class="waves-effect waves-green btn-flat" (click)="fechaModal()">Close</a>
+    </div>
+  </div>
+</div>
+
+	
+</div>
